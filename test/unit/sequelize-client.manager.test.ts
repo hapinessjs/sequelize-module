@@ -7,12 +7,14 @@ import { test, suite } from 'mocha-typescript';
 * @see http://unitjs.com/
 */
 import * as unit from 'unit.js';
+import * as Sequelize from 'sequelize';
+
 // import { Observable } from 'rxjs/Observable';
 import { SequelizeClientManager } from '../../src';
 // import { mockSquelizerAuthenticate } from '../mocks';
 
-@suite('- Unit SequelizeAdapterTest file')
-export class SequelizeAdapterTest {
+@suite('- Unit SequelizeClientManagerTest file')
+export class SequelizeClientManagerTest {
 
     /**
     * Instantiate class without any config should throw an error
@@ -40,7 +42,7 @@ export class SequelizeAdapterTest {
         unit
         .assert
         .throws(
-            () => new SequelizeClientManager({} as any),
+            () => new SequelizeClientManager({}),
             (err) => {
                 if (err.message === 'Missing sequelize configuration') {
                     return true;
@@ -51,32 +53,12 @@ export class SequelizeAdapterTest {
     }
 
     /**
-    * Instantiate class with a sqlite dialect but no sqliteStoragePath should throw an error
-    */
-    // @test('- Instantiate class with a sqlite dialect but no sqliteStoragePath should throw an error')
-    // testInstantiateWithSqliteButNoSqliteStoragePathConfigShouldThrow() {
-    //     unit
-    //     .assert
-    //     .throws(
-    //         () => new SequelizeClientManager({ }),
-    //         (err) => {
-    //             if (err.message === 'Sqlite requires a sqliteStoragePath') {
-    //                 return true;
-    //             }
-    //             return false;
-    //         }
-    //     )
-    // }
-
-    /**
     * Instantiate class with a sqlite dialect
     */
-    // @test('- Instantiate class with a sqlite dialect')
-    // testInstantiateWithSqlite() {
-    //     const sequelizeAuthenticateStub = mockSquelizerAuthenticate();
-    //     sequelizeAuthenticateStub.returns()
-    //         const sequelize = new SequelizeClientManager({ dialect: 'sqlite', sqliteStoragePath: './plop.sqlite' });
+    @test('- Instantiate class with a sqlite dialect')
+    testInstantiateWithSqlite() {
+        const sequelizeClient = new SequelizeClientManager({dialect: 'sqlite', storage: 'memory'});
 
-    //         sequelize.testConnection().subscribe(() => {}, err => unit);
-    // }
+        unit.object(sequelizeClient.client).isInstanceOf(Sequelize);
+    }
 }

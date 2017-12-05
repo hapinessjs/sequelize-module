@@ -3,9 +3,6 @@ import { SequelizeClientExt } from '../sequelize.extension';
 import { SequelizeClientManager } from '../managers';
 import * as Sequelize from 'sequelize';
 import { Observable } from 'rxjs/Observable';
-import { Debugger } from '../shared';
-
-const __debugger = new Debugger('SequelizeClientService');
 
 @Injectable()
 export class SequelizeClientService {
@@ -15,23 +12,11 @@ export class SequelizeClientService {
         this._client = this._sequelizeManager.client;
     }
 
-    public get connection(): Sequelize.Sequelize {
+    public get instance(): Sequelize.Sequelize {
         return this._client;
     }
 
     public testConnection(): Observable<void> {
-        return Observable.create(observer => {
-            this._client
-                .authenticate()
-                .catch(err => {
-                    __debugger.debug('connect', `connection failed ${JSON.stringify(err, null, 2)}`);
-                    observer.error(err);
-                })
-                .then(_ => {
-                    __debugger.debug('connect', `connected to ${this._client.getDialect()}`);
-                    observer.next(_);
-                    observer.complete();
-                });
-        });
+            return Observable.fromPromise(this._client.authenticate());
     }
 }

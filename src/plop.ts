@@ -30,7 +30,7 @@ export class App implements OnError, OnStart {
             () => __debugger.debug('onStart', 'Test connection success')
         );
 
-        this.sequlize.connection.getQueryInterface().createTable('People', {
+        this.sequlize.instance.getQueryInterface().createTable('People', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,

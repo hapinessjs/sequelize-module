@@ -19,7 +19,7 @@ export class GetRoute implements OnGet {
     ) {}
 
     onGet(request: Request): Observable<any[]> {
-        return Observable.fromPromise(this.service.connection.models.Person.all());
+        return Observable.fromPromise(this.service.instance.models.Person.all());
     }
 }
 
@@ -48,6 +48,6 @@ export class PostRoute implements OnPost {
      */
     onPost(request: Request): Observable<PersonModel> {
         return Observable
-            .fromPromise(this.service.connection.models.Person.create(request.payload));
+            .fromPromise(this.service.instance.models.Person.create(request.payload));
     }
 }
