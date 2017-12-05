@@ -1,0 +1,115 @@
+{
+    "name": "@hapiness/sequelize",
+    "version": "1.1.0",
+    "description": "Hapiness Module for SQL usage",
+    "main": "commonjs/index.js",
+    "types": "index.d.ts",
+    "private": false,
+    "scripts": {
+        "test": "make test",
+        "pretest": "make pretest",
+        "coveralls": "make coveralls",
+        "packaging": "make packaging",
+        "prebuild": "make pretest && make test && make clean",
+        "build": "make tsc",
+        "postbuild": "make packaging",
+        "dev:watch": "make clean-dev && concurrently -k --raw \"make build-dev\" \"make run-dev\""
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+ssh://git@github.com/hapinessjs/sequelize-module.git"
+    },
+    "keywords": [
+        "SQL",
+        "SQLite",
+        "MySQL",
+        "PostgreSQL",
+        "MSSQL",
+        "SQL Server",
+        "Hapiness",
+        "Framework",
+        "NodeJS",
+        "Node",
+        "HTTP",
+        "API",
+        "REST",
+        "Streams",
+        "Async",
+        "Decorator",
+        "RxJS",
+        "Rx",
+        "ReactiveX",
+        "Observable",
+        "Observer",
+        "Module",
+        "ES2015",
+        "ES2016",
+        "ES2017",
+        "ES6",
+        "ES7",
+        "ES8",
+        "Typescript"
+    ],
+    "contributors": [
+        {
+            "name": "Julien Fauville",
+            "url": "https://github.com/Juneil"
+        },
+        {
+            "name": "Antoine Gomez",
+            "url": "https://github.com/antoinegomez"
+        },
+        {
+            "name": "Sébastien Ritz",
+            "url": "https://github.com/reptilbud"
+        },
+        {
+            "name": "Nicolas Jessel",
+            "url": "https://github.com/njl07"
+        }
+    ],
+    "license": "SEE LICENSE IN https://github.com/hapinessjs/sequelize-module/blob/master/LICENSE.md",
+    "bugs": {
+        "url": "https://github.com/hapinessjs/sequelize-module/issues"
+    },
+    "homepage": "https://github.com/hapinessjs/sequelize-module#readme",
+    "dependencies": {
+        "@types/sequelize": "^4.0.79",
+        "debug": "^3.1.0",
+        "reflect-metadata": "^0.1.10",
+        "rxjs": "^5.5.2",
+        "sequelize": "^4.23.4",
+        "sequelize-typescript": "^0.6.1",
+        "sqlite3": "^3.1.13"
+    },
+    "devDependencies": {
+        "@hapiness/core": "1.2.2",
+        "@types/fs-extra": "^4.0.5",
+        "@types/node": "^8.0.53",
+        "concurrently": "^3.5.1",
+        "fs-extra": "^4.0.2",
+        "istanbul": "^1.1.0-alpha.1",
+        "mocha": "^4.0.1",
+        "mocha-typescript": "^1.1.12",
+        "nodemon": "^1.12.1",
+        "rimraf": "^2.6.2",
+        "ts-node": "^3.3.0",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1",
+        "unit.js": "^2.0.0"
+    },
+    "peerDependencies": {
+        "@hapiness/core": "1.2.2"
+    },
+    "optionalDependencies": {
+        "mysql2": "^1.5.1",
+        "pg": "^6.4.2",
+        "pg-hstore": "^2.3.2",
+        "rxjs": "^5.5.2",
+        "sqlite3": "^3.1.13",
+        "tedious": "^2.1.5"
+    },
+    "engines": {
+        "node": ">=7.0.0"
+    }
+}
