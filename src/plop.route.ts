@@ -1,7 +1,7 @@
 import { Route, Request, OnGet, OnPost } from '@hapiness/core';
 import { Observable } from 'rxjs';
-// import { SequelizeClientService } from './module/services';
-// import { PersonModel } from './person.model';
+import { SequelizeClientService } from './module/services/index';
+import { PersonModel } from './person.model';
 
 @Route({
     path: '/persons',
@@ -14,14 +14,12 @@ import { Observable } from 'rxjs';
     providers: [ ]
 })
 export class GetRoute implements OnGet {
-    // constructor(
-    //     private service: SequelizeClientService
-    // ) {}
+    constructor(
+        private service: SequelizeClientService
+    ) {}
 
     onGet(request: Request): Observable<any[]> {
-    // onGet(request: Request): Observable<PersonModel[]> {
-        // const person = new PersonModel();
-        return Observable.of([]); /* Observable.fromPromise(PersonModel.findAll()); */
+        return Observable.fromPromise(this.service.connection.models.Person.all());
     }
 }
 
@@ -36,9 +34,9 @@ export class GetRoute implements OnGet {
     providers: [ ]
 })
 export class PostRoute implements OnPost {
-    // constructor(
-    //     private service: SequelizeClientService
-    // ) {}
+    constructor(
+        private service: SequelizeClientService
+    ) {}
 
     /**
      * Post handler
@@ -48,10 +46,8 @@ export class PostRoute implements OnPost {
      * @param  {Request} request
      * @returns Observable
      */
-    onPost(request: Request): Observable<any> {
-    // onPost(request: Request): Observable<PersonModel> {
-        // const newPerson = new PersonModel(request.payload)
-        return Observable.of({});
-            // .fromPromise(newPerson.save());
+    onPost(request: Request): Observable<PersonModel> {
+        return Observable
+            .fromPromise(this.service.connection.models.Person.create(request.payload));
     }
 }

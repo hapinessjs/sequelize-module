@@ -1,20 +1,25 @@
-import {Table, Column, Model} from 'sequelize-typescript';
-import { TableModel } from './module/interfaces/table-decorator';
+// import { Table, Column, Model } from 'sequelize-typescript';
+import * as Sequelize from 'sequelize';
+import { TableModel } from './module/interfaces';
 
-@TableModel({})
-@Table
-export class PersonModel extends Model<PersonModel> {
-  @Column
-  name: string;
+@TableModel({
+  name: 'Person',
+  model: {
+    title: Sequelize.STRING,
+    description: Sequelize.TEXT
+  }
+})
+export class PersonModel { }
 
-  @Column
-  birthday: Date;
-}
+// @TableModel({})
+// @Table({
+//   tableName: 'Persons',
+//   modelName: 'Person'
+// })
+// export class PersonModel extends Model<PersonModel> {
+//   @Column
+//   name: string;
 
-// export class PersonModel {
-
-//   getModel() {
-//     return Person;
-//   }
-
+//   @Column
+//   birthday: Date;
 // }

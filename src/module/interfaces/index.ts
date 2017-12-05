@@ -1,1 +1,1 @@
-export * from './hapiness-sequelize-adapter';
+export * from './table-decorator';
