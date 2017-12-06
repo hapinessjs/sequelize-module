@@ -7,7 +7,9 @@ import { test, suite } from 'mocha-typescript';
 * @see http://unitjs.com/
 */
 import * as unit from 'unit.js';
-import * as Sequelize from 'sequelize';
+// import * as Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
+
 
 // import { Observable } from 'rxjs/Observable';
 import { SequelizeClientManager } from '../../src';
@@ -42,7 +44,7 @@ export class SequelizeClientManagerTest {
         unit
         .assert
         .throws(
-            () => new SequelizeClientManager({}),
+            () => new SequelizeClientManager({} as any),
             (err) => {
                 if (err.message === 'Missing sequelize configuration') {
                     return true;
@@ -57,7 +59,13 @@ export class SequelizeClientManagerTest {
     */
     @test('- Instantiate class with a sqlite dialect')
     testInstantiateWithSqlite() {
-        const sequelizeClient = new SequelizeClientManager({dialect: 'sqlite', storage: 'memory'});
+        const sequelizeClient = new SequelizeClientManager({
+            dialect: 'sqlite',
+            storage: 'memory',
+            database: null,
+            username: null,
+            password: null
+        });
 
         unit.object(sequelizeClient.client).isInstanceOf(Sequelize);
     }

@@ -10,7 +10,13 @@ export class SequelizeClientServiceTest {
 
     @test('- Create the service and get the instance')
     testServiceGetInstance() {
-        const manager = new SequelizeClientManager({ dialect: 'sqlite', storage: ':memory:' });
+        const manager = new SequelizeClientManager({
+            dialect: 'sqlite',
+            storage: ':memory:',
+            database: null,
+            username: null,
+            password: null
+        });
 
         const service = new SequelizeClientService(manager);
 

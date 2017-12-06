@@ -1,16 +1,16 @@
 import { Hapiness, OnError, OnStart, HapinessModule, HttpServerExt, Inject, Server } from '@hapiness/core';
-import { SequelizeClientExt, SequelizeModule } from './module';
-import { PersonModel } from './person.model';
-import { GetRoute, PostRoute } from './plop.route';
-import { SequelizeClientService } from './module/services';
-import * as Sequelize from 'sequelize';
-import { Debugger } from './module/shared';
+import { SequelizeExt, SequelizeModule } from '../module';
+import { Person } from './models/person';
+import { GetRoute, PostRoute } from './app.route';
+import { SequelizeClientService } from '../module/services';
+import { Sequelize } from 'sequelize-typescript';
+import { Debugger } from '../module/shared';
 
 const __debugger = new Debugger('App');
 @HapinessModule({
     version: '42.4.2',
     imports: [ SequelizeModule ],
-    declarations: [ PersonModel, GetRoute, PostRoute],
+    declarations: [ Person, GetRoute, PostRoute],
     providers: [ ]
 })
 export class App implements OnError, OnStart {
@@ -18,11 +18,11 @@ export class App implements OnError, OnStart {
     }
 
     public onError(err) {
-        console.error(`Error => `, err);
+        __debugger.debug('onError', `Error => ${err}`);
     }
 
     public onStart() {
-        console.log(`started on ${this.httpServer.info.uri}`);
+        __debugger.debug('onStart', `started on ${this.httpServer.info.uri}`);
         this.sequlize
         .testConnection()
         .subscribe(null,
@@ -30,13 +30,14 @@ export class App implements OnError, OnStart {
             () => __debugger.debug('onStart', 'Test connection success')
         );
 
-        this.sequlize.instance.getQueryInterface().createTable('People', {
+        this.sequlize.instance.getQueryInterface().createTable('Person', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
                 autoIncrement: true
             },
             title: Sequelize.STRING,
+            name: Sequelize.STRING,
             description: Sequelize.TEXT,
             createdAt: {
                 type: Sequelize.DATE
@@ -50,7 +51,7 @@ export class App implements OnError, OnStart {
 
 Hapiness
 .bootstrap(App, [
-    SequelizeClientExt.setConfig({
+    SequelizeExt.setConfig({
         database: 'plop',
         dialect: 'sqlite',
         storage: ':memory:',

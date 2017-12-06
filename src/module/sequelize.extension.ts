@@ -1,17 +1,24 @@
 import {
-    OnExtensionLoad, ExtensionWithConfig, Extension, CoreModule, extractMetadataByDecorator, DependencyInjection,
+    OnExtensionLoad, ExtensionWithConfig, Extension, CoreModule, extractMetadataByDecorator,
     OnModuleInstantiated
 } from '@hapiness/core';
 import { Observable } from 'rxjs';
 import { SequelizeClientManager } from './managers';
-import { Options as SequelizeConfig } from 'sequelize';
+import { SequelizeConfig } from 'sequelize-typescript/lib/types/SequelizeConfig';
 
-export class SequelizeClientExt implements OnExtensionLoad, OnModuleInstantiated {
+export class SequelizeExt implements OnExtensionLoad, OnModuleInstantiated {
     private _sequelizeClient: SequelizeClientManager;
 
+    /**
+    * Set the config for Sequelize module.
+    *
+    * @static
+    * @param  {SequelizeConfig} config
+    * @returns ExtensionWithConfig
+    */
     static setConfig(config: SequelizeConfig): ExtensionWithConfig {
         return {
-            token: SequelizeClientExt,
+            token: SequelizeExt,
             config
         }
     }
@@ -25,20 +32,27 @@ export class SequelizeClientExt implements OnExtensionLoad, OnModuleInstantiated
     */
     onExtensionLoad(module: CoreModule, config: SequelizeConfig): Observable<Extension> {
         return Observable
-            .of(config)
-            .map(_ => {
-                this._sequelizeClient = new SequelizeClientManager(_);
-                return this._sequelizeClient;
-            })
-            .map(_ => ({
-                instance: this,
-                token: SequelizeClientExt,
-                value: _
-            }));
+        .of(config)
+        .map(_ => {
+            this._sequelizeClient = new SequelizeClientManager(_);
+            return this._sequelizeClient;
+        })
+        .map(_ => ({
+            instance: this,
+            token: SequelizeExt,
+            value: _
+        }));
     }
 
+    /**
+    * Actions performed when the extention have been loaded
+    * Load models
+    *
+    * @param  {CoreModule} module
+    * @returns Observable<Extension>
+    */
     onModuleInstantiated(module: CoreModule): Observable<void> {
-    return this
+        return this
         .addModels(module)
         .ignoreElements()
         .defaultIfEmpty(null);
@@ -48,15 +62,12 @@ export class SequelizeClientExt implements OnExtensionLoad, OnModuleInstantiated
         return Observable
         .from([].concat(module.declarations))
         .filter(_ => !!extractMetadataByDecorator(_, 'TableModel'))
-        .flatMap(_ =>
-            DependencyInjection
-            .instantiateComponent(_, module.di)
-            .map(instance => ({ instance, token: _ }))
-        )
-        .flatMap(instanceToken =>
+        .flatMap(token =>
             Observable
-            .of(extractMetadataByDecorator<any>(instanceToken.token, 'TableModel'))
-            .map(_ => this._sequelizeClient.client.define(_.name, _.model))
+            .of(extractMetadataByDecorator<any>(token, 'TableModel'))
+            .map(_ => _.model)
+            .toArray()
+            .do(_ => this._sequelizeClient.client.addModels(_))
         )
         .toArray()
         .flatMap(_ =>

@@ -6,13 +6,15 @@ import { test, suite } from 'mocha-typescript';
 /**
 * @see http://unitjs.com/
 */
-// import * as unit from 'unit.js';
-import * as Sequelize from 'sequelize';
+import * as unit from 'unit.js';
+// import * as Sequelize from 'sequelize';
+import { /* Sequelize, */ Table, Column, Model } from 'sequelize-typescript';
+
 // import { Model } from 'sequelize';
 
 import { Hapiness, HapinessModule, Inject, OnStart, Server, HttpServerExt } from '@hapiness/core';
 import {
-    SequelizeClientExt, SequelizeModule, SequelizeClientService, TableModel
+    SequelizeExt, SequelizeModule, SequelizeClientService, TableModel
 } from '../../src/index';
 
 @suite('- Integration test of SequelizeModule')
@@ -55,9 +57,12 @@ export class SequelizeModuleIntegrationTest {
 
         Hapiness.bootstrap(SequelizeModuleTest, [
             HttpServerExt.setConfig({ host: '0.0.0.0', port: 1234 }),
-            SequelizeClientExt.setConfig({
+            SequelizeExt.setConfig({
                 dialect: 'sqlite',
-                storage: ':memory:'
+                storage: ':memory:',
+                username: null,
+                password: null,
+                database: null
             })
         ]);
     }
@@ -65,13 +70,12 @@ export class SequelizeModuleIntegrationTest {
 
     @test('- It should register Models')
     testSequelizeModel(done) {
-        @TableModel({
-            name: 'MyModel',
-            model: {
-                name: Sequelize.STRING
-            }
-        })
-        class MyModel { }
+        @TableModel({ model: MyModel })
+        @Table
+        class MyModel extends Model<MyModel> {
+            @Column
+            name: String;
+        }
 
         @HapinessModule({
             version: '1.0.0',
@@ -84,22 +88,23 @@ export class SequelizeModuleIntegrationTest {
 
             onStart(): void {
                 let model = this._sequelizeClientService.instance.model('MyModel');
-                console.log(`model ===> `, model);
 
-                // unit.object(model).isNot(undefined);
-                // unit.function(model).hasName(Model.constructor.prototype);
+                unit.value(model).isFunction();
                 done();
             }
         }
 
         Hapiness.bootstrap(SequelizeModuleTest, [
-            SequelizeClientExt.setConfig({
+            SequelizeExt.setConfig({
                 dialect: 'sqlite',
-                storage: ':memory:'
+                storage: ':memory:',
+                username: null,
+                password: null,
+                database: null
             })
         ])
         .catch(err => {
-           done(err);
+            done(err);
         });
     }
 }

@@ -1,22 +1,33 @@
 import { Inject, Injectable } from '@hapiness/core';
-import { SequelizeClientExt } from '../sequelize.extension';
+import { SequelizeExt } from '../sequelize.extension';
 import { SequelizeClientManager } from '../managers';
-import * as Sequelize from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
+// import * as Sequelize from 'sequelize';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SequelizeClientService {
-    private _client: Sequelize.Sequelize;
+    private _client: Sequelize;
 
-    constructor( @Inject(SequelizeClientExt) private _sequelizeManager: SequelizeClientManager) {
+    constructor( @Inject(SequelizeExt) private _sequelizeManager: SequelizeClientManager) {
         this._client = this._sequelizeManager.client;
     }
 
-    public get instance(): Sequelize.Sequelize {
+    /**
+    * Give you the Sequelize instance
+    *
+    * @returns Sequelize
+    */
+    public get instance(): Sequelize {
         return this._client;
     }
 
+    /**
+    * Test if you can successfully connect to your database.
+    *
+    * @returns Observable<void>
+    */
     public testConnection(): Observable<void> {
-            return Observable.fromPromise(this._client.authenticate());
+        return Observable.fromPromise(this._client.authenticate());
     }
 }

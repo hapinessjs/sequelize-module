@@ -1,12 +1,12 @@
-import * as Sequelize from 'sequelize';
-import { Options as SequelizeConfig } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
 import { Debugger } from '../shared';
+import { SequelizeConfig } from 'sequelize-typescript/lib/types/SequelizeConfig';
 
 const __debugger = new Debugger('SequelizeClientManager');
 
 export class SequelizeClientManager {
     protected _config: SequelizeConfig;
-    protected _client: Sequelize.Sequelize;
+    protected _client: Sequelize;
 
     constructor(options: SequelizeConfig) {
         __debugger.debug('constructor', '');
@@ -20,7 +20,12 @@ export class SequelizeClientManager {
         this._client = new Sequelize(this._config)
     }
 
-    public get client(): Sequelize.Sequelize {
+    /**
+    * Give you the Sequelize instance
+    *
+    * @returns Sequelize
+    */
+    public get client(): Sequelize {
         return this._client;
     }
 }
