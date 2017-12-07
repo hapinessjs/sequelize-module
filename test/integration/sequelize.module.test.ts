@@ -90,6 +90,7 @@ export class SequelizeModuleIntegrationTest {
                 let model = this._sequelizeClientService.instance.model('MyModel');
 
                 unit.value(model).isFunction();
+                this._sequelizeClientService.close();
                 done();
             }
         }

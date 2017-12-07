@@ -17,8 +17,7 @@
         "types": [
             "node",
             "fs-extra",
-            "sequelize",
-            "sequelize-typescript"
+            "sequelize"
         ]
     },
     "compileOnSave": false,

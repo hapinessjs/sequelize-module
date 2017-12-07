@@ -75,9 +75,9 @@ $ yarn add tedious # MSSQL
 ```
 ```javascript
 "dependencies": {
-    "@hapiness/core": "^1.2.2",
+    "@hapiness/core": "^1.3.0",
     "@hapiness/sequelize": "^1.0.0",
-    "rxjs": "^5.5.2",
+    "rxjs": "^5.5.3",
     // + one of these
     "mysql2": "^1.5.1",
     "pg": "^6.4.2",
@@ -183,19 +183,21 @@ class FooProvider {
 
 <table>
     <tr>
-        <td colspan="4" align="center"><a href="https://www.tadaweb.com"><img src="http://bit.ly/2xHQkTi" width="117" alt="tadaweb" /></a></td>
+        <td colspan="5" align="center"><a href="https://www.tadaweb.com"><img src="http://bit.ly/2xHQkTi" width="117" alt="tadaweb" /></a></td>
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/Juneil"><img src="https://avatars3.githubusercontent.com/u/6546204?v=3&s=117" width="117"/></a></td>
         <td align="center"><a href="https://github.com/antoinegomez"><img src="https://avatars3.githubusercontent.com/u/997028?v=3&s=117" width="117"/></a></td>
         <td align="center"><a href="https://github.com/reptilbud"><img src="https://avatars3.githubusercontent.com/u/6841511?v=3&s=117" width="117"/></a></td>
         <td align="center"><a href="https://github.com/njl07"><img src="https://avatars3.githubusercontent.com/u/1673977?v=3&s=117" width="117"/></a></td>
+        <td align="center"><a href="https://github.com/xmaIIoc"><img src="https://avatars2.githubusercontent.com/u/1898461?s=117&v=4" width="117"/></a></td>
     </tr>
     <tr>
         <td align="center"><a href="https://github.com/Juneil">Julien Fauville</a></td>
         <td align="center"><a href="https://github.com/antoinegomez">Antoine Gomez</a></td>
         <td align="center"><a href="https://github.com/reptilbud">Sébastien Ritz</a></td>
         <td align="center"><a href="https://github.com/njl07">Nicolas Jessel</a></td>
+        <td align="center"><a href="https://github.com/xmaIIoc">Florent Bennani</a></td>
     </tr>
 </table>
 
@@ -203,6 +205,6 @@ class FooProvider {
 
 ## License
 
-Copyright (c) 2017 **Hapiness** Licensed under the [MIT license](https://github.com/hapinessjs/redis-module/blob/master/LICENSE.md).
+Copyright (c) 2017 **Hapiness** Licensed under the [MIT license](https://github.com/hapinessjs/sequelize-module/blob/master/LICENSE.md).
 
 [Back to top](#table-of-contents)
