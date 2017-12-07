@@ -1,0 +1,20 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        "outDir": "./dev",
+        "rootDir": ".",
+        "types": [
+            "node",
+            "sequelize"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "dist",
+        "tmp",
+        "dev",
+        "test",
+        "tools",
+        "examples"
+    ]
+}
