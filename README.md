@@ -57,7 +57,7 @@ $ npm install --save @hapiness/core @hapiness/sequelize rxjs
 $ yarn add @hapiness/core @hapiness/sequelize rxjs
 ```
 
-### Installing peer dependecies
+### Installing peer dependencies
 According to `sequelize` documentation you will need to install at least one of these packages for sequelize-module to work:
 
 ```bash
