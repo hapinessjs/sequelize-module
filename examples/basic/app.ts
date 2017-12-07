@@ -1,10 +1,10 @@
 import { Hapiness, OnError, OnStart, HapinessModule, HttpServerExt, Inject, Server } from '@hapiness/core';
-import { SequelizeExt, SequelizeModule } from '../module';
+import { SequelizeExt, SequelizeModule } from '../../src/module';
 import { Person } from './models/person';
 import { GetRoute, PostRoute } from './app.route';
-import { SequelizeClientService } from '../module/services';
+import { SequelizeClientService } from '../../src/module/services';
 import { Sequelize } from 'sequelize-typescript';
-import { Debugger } from '../module/shared';
+import { Debugger } from '../../src/module/shared';
 
 const __debugger = new Debugger('App');
 @HapinessModule({

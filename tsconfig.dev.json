@@ -2,7 +2,7 @@
     "extends": "./tsconfig.json",
     "compilerOptions": {
         "outDir": "./dev",
-        "rootDir": "./src",
+        "rootDir": ".",
         "types": [
             "node",
             "joi"

@@ -15,8 +15,8 @@ packaging:
 clean-dev:
 	@node ./node_modules/.bin/rimraf ./dev
 build-dev:
-	@node ./node_modules/.bin/nodemon -q -e ts -w src -x "./node_modules/.bin/tslint -p ./tsconfig.dev.json --type-check \"./src/**/*.ts\" && ./node_modules/.bin/tsc -p ./tsconfig.dev.json || true"
+	@node ./node_modules/.bin/nodemon -q -e ts -w src -x "./node_modules/.bin/tslint -p ./tsconfig.dev.json --type-check \"./src/**/*.ts\" \"./examples/**/*.ts\" && ./node_modules/.bin/tsc -p ./tsconfig.dev.json || true"
 run-dev:
-	@node ./node_modules/.bin/nodemon -q -x "NODE_ENV=development DEBUG=hapiness:* node ./dev/examples/app.js || true"
+	@node ./node_modules/.bin/nodemon -q -x "NODE_ENV=development DEBUG=hapiness:* node ./dev/examples/basic/app.js || true"
 
 .PHONY: pretest test coveralls tsc clean packaging

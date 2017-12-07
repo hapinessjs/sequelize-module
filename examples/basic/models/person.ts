@@ -1,5 +1,5 @@
 import { Model, Column, Table } from 'sequelize-typescript';
-import { TableModel } from '../../module/interfaces';
+import { TableModel } from '../../../src/module/interfaces';
 
 @TableModel({
   model: Person

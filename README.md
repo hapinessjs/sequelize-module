@@ -56,6 +56,7 @@ $ npm install --save @hapiness/core @hapiness/sequelize rxjs
 // Using Yarn
 $ yarn add @hapiness/core @hapiness/sequelize rxjs
 ```
+
 ### Installing peer dependecies
 According to `sequelize` documentation you will need to install at least one of these packages for sequelize-module to work:
 
@@ -87,12 +88,12 @@ $ yarn add tedious # MSSQL
 }
 ```
 
-###Importing `SequelizeModule` from the library
+### Importing `SequelizeModule` from the library
 
 This module provide an Hapiness extension for Sequelize.
 To use it, simply register it during the ```bootstrap``` step of your project and provide the ```SequelizeExt``` with its config
 
-```javascript
+```typescript
 @HapinessModule({
     version: '1.0.0',
     providers: [],
@@ -156,6 +157,8 @@ export class User extends Model<User> { }
 ### Injecting a model
 
 To Inject a Model in your application you just need to pass it to the array of `declarations` of your @`HapinessModule`.
+
+> See examples directory for a basic working implementation. Run it with the command `npm run dev:watch`.
 
 ## ```SequelizeClientService``` functions
 
