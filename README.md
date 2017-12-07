@@ -36,15 +36,15 @@
 Sequelize-module is a wrapper of [sequelize](http://docs.sequelizejs.com/) and [sequelize-typescript](https://github.com/RobinBuschmann/sequelize-typescript) for the Hapiness Framework.
 
 ## Table of contents
-* [Using sequelize-module inside your Hapiness application](#using-sequelize-module-inside-your-Hapiness-application)
-    * [`yarn` or `npm` it in your `package.json`](#yarn-or-npm-it-in-your-package)
-    * [Installing peer dependecies](#installing-peer-dependencies)
+* [Using sequelize-module inside your Hapiness application](#using-sequelize-module-inside-your-hapiness-application)
+    * [`yarn` or `npm` it in your `package.json`](#yarn-or-npm-it-in-your-packagejson)
+    * [Installing peer dependencies](#installing-peer-dependencies)
     * [Importing `SequelizeModule` from the library](#importing-sequelizemodule-from-the-library)
 * [Models](#models)
     * [Defining a model](#defining-a-model)
     * [Injecting a model](#injecting-a-model)
 * [`SequelizeClientService` functions](#sequelizeclientservice-functions)
-* [Mainteners](#mainteners)
+* [Mainteners](#maintainers)
 
 ## Using sequelize-module inside your Hapiness application
 
