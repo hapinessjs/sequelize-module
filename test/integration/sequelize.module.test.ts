@@ -70,7 +70,7 @@ export class SequelizeModuleIntegrationTest {
 
     @test('- It should register Models')
     testSequelizeModel(done) {
-        @TableModel({ model: MyModel })
+        @TableModel()
         @Table
         class MyModel extends Model<MyModel> {
             @Column

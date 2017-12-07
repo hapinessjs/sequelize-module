@@ -1,9 +1,5 @@
-import { CoreDecorator, createDecorator } from '@hapiness/core';
+import { makeDecorator } from '@hapiness/core';
 
-export interface TableModel {
-    model?: any
-}
+export interface TableModel {}
 
-export const TableModel: CoreDecorator<TableModel> = createDecorator<TableModel>('TableModel', {
-    model: undefined
-});
+export const TableModel = makeDecorator('TableModel', null);

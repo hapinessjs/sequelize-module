@@ -7,7 +7,6 @@ import { SequelizeClientManager } from './managers';
 import { SequelizeConfig } from 'sequelize-typescript/lib/types/SequelizeConfig';
 
 export class SequelizeExt implements OnExtensionLoad, OnModuleInstantiated {
-    private _sequelizeClient: SequelizeClientManager;
 
     /**
     * Set the config for Sequelize module.
@@ -33,10 +32,7 @@ export class SequelizeExt implements OnExtensionLoad, OnModuleInstantiated {
     onExtensionLoad(module: CoreModule, config: SequelizeConfig): Observable<Extension> {
         return Observable
         .of(config)
-        .map(_ => {
-            this._sequelizeClient = new SequelizeClientManager(_);
-            return this._sequelizeClient;
-        })
+        .map(_ => new SequelizeClientManager(_))
         .map(_ => ({
             instance: this,
             token: SequelizeExt,
@@ -49,31 +45,27 @@ export class SequelizeExt implements OnExtensionLoad, OnModuleInstantiated {
     * Load models
     *
     * @param  {CoreModule} module
+    * @param  {SequelizeClientManager} manager
     * @returns Observable<Extension>
     */
-    onModuleInstantiated(module: CoreModule): Observable<void> {
+    onModuleInstantiated(module: CoreModule, manager: SequelizeClientManager): Observable<void> {
         return this
-        .addModels(module)
+        .addModels(module, manager)
         .ignoreElements()
         .defaultIfEmpty(null);
     }
 
-    private addModels(module: CoreModule): Observable<any> {
+    private addModels(module: CoreModule, manager: SequelizeClientManager): Observable<any> {
         return Observable
         .from([].concat(module.declarations))
         .filter(_ => !!extractMetadataByDecorator(_, 'TableModel'))
-        .flatMap(token =>
-            Observable
-            .of(extractMetadataByDecorator<any>(token, 'TableModel'))
-            .map(_ => _.model)
-            .toArray()
-            .do(_ => this._sequelizeClient.client.addModels(_))
-        )
+        .toArray()
+        .do(_ => manager.client.addModels(_))
         .toArray()
         .flatMap(_ =>
             Observable
             .from([].concat(module.modules).filter(__ => !!__))
-            .flatMap(__ => this.addModels(__))
+            .flatMap(__ => this.addModels(__, manager))
         );
     }
 }

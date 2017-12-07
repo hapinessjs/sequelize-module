@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@hapiness/core';
 import { SequelizeExt } from '../sequelize.extension';
 import { SequelizeClientManager } from '../managers';
 import { Sequelize } from 'sequelize-typescript';
-// import * as Sequelize from 'sequelize';
 import { Observable } from 'rxjs/Observable';
 
 @Injectable()
@@ -20,6 +19,15 @@ export class SequelizeClientService {
     */
     public get instance(): Sequelize {
         return this._client;
+    }
+
+    /**
+    * Close the Sequelize connection
+    *
+    * @returns void
+    */
+    public close(): void {
+        return this._client.close();
     }
 
     /**

@@ -14,7 +14,7 @@ const __debugger = new Debugger('App');
     providers: [ ]
 })
 export class App implements OnError, OnStart {
-    constructor( @Inject(HttpServerExt) private httpServer: Server, private sequlize: SequelizeClientService) {
+    constructor( @Inject(HttpServerExt) private httpServer: Server, private sequelize: SequelizeClientService) {
     }
 
     public onError(err) {
@@ -23,14 +23,14 @@ export class App implements OnError, OnStart {
 
     public onStart() {
         __debugger.debug('onStart', `started on ${this.httpServer.info.uri}`);
-        this.sequlize
+        this.sequelize
         .testConnection()
         .subscribe(null,
             err => __debugger.debug('onStart', 'Test connection failed'),
             () => __debugger.debug('onStart', 'Test connection success')
         );
 
-        this.sequlize.instance.getQueryInterface().createTable('Person', {
+        this.sequelize.instance.getQueryInterface().createTable('Person', {
             id: {
                 type: Sequelize.INTEGER,
                 primaryKey: true,
@@ -62,15 +62,6 @@ Hapiness
     HttpServerExt
     .setConfig(
         {
-            options: {
-                connections: {
-                    routes: {
-                        cors: {
-                            origin: ['*']
-                        }
-                    }
-                }
-            },
             host: 'localhost',
             port: 8888
         }

@@ -76,7 +76,7 @@ $ yarn add tedious # MSSQL
 ```javascript
 "dependencies": {
     "@hapiness/core": "^1.2.2",
-    "@hapiness/redis": "^1.0.0",
+    "@hapiness/sequelize": "^1.0.0",
     "rxjs": "^5.5.2",
     // + one of these
     "mysql2": "^1.5.1",
@@ -129,7 +129,7 @@ Hapiness
 
 `SequelizeExt` needs an `Option` object so you can provide all the properties defined by [Sequelize](http://docs.sequelizejs.com/class/lib/sequelize.js~Sequelize.html#instance-constructor-constructor) with the minimum of the options below:
 ```typescript
-inteface Options {
+interface Options {
     username: string;
     password: string;
     database: string;
@@ -147,7 +147,7 @@ Sequelize-module uses `sequelize-typescript` so you can define your models with 
 import { Model, Table } from 'sequelize-typescript';
 import { TableModel } from '@hapiness/sequelize';
 
-@TableModel({ model: User })
+@TableModel()
 @Table
 export class User extends Model<User> { }
 ```
